@@ -1,12 +1,12 @@
 {
-  "name": "octo",
+  "name": "node-octo",
   "version": "0.0.1",
   "description": "Octopart API wrapper",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Daniel Tralamazza",
+  "author": "Daniel Tralamazza <tralamazza@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "request": "~2.33.0"

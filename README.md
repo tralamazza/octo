@@ -8,7 +8,7 @@ Official [Octopart REST API documentation](http://octopart.com/api/docs/v3/rest-
 ##Quickstart
 
 ```js
-var octo = require('octo')
+var octo = require('node-octo');
 
 cli = octo.createV3('myapikey');
 
