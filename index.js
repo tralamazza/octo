@@ -36,13 +36,11 @@ var OctoNode = function(apikey, apipath) {
 
 	var send = function(path, params, filters, cb) {
 		if (typeof filters === 'function')
-			cb = filters;
-		else if (filters !== null && filters !== {})
+			cb = filters; // skip filters
+		else if (filters)
 			params = params.concat(encodeFilters(filters));
 		var opt = {
 			headers: { Accept: 'application/json' },
-			jar: false, // no cookies
-			method: 'GET',
 			url: url.format({
 				protocol: 'https',
 				host: 'octopart.com',
@@ -50,23 +48,27 @@ var OctoNode = function(apikey, apipath) {
 				search: params.join('&') + '&apikey=' + apikey
 			})
 		};
-		request(opt, function(err, res, body) {
+		return request.get(opt, cb ? function(err, res, body) {
 			if (err)
-				return cb(err);
+				cb(err);
 			else if (res.statusCode != 200)
-				return cb(new Error(JSON.parse(body).message));
-			return cb(null, JSON.parse(body));
-		});
+				cb(new Error(JSON.parse(body).message));
+			else
+				cb(null, JSON.parse(body));
+		} : null);
 	};
 
 	['brands', 'categories', 'parts', 'sellers'].forEach(function(name) {
 		// uids = '2239e3330e2df5fe' or ['2239e3330e2df5fe', ...]
 		// filters = response filters
 		self[name + 'ByID'] = function(uids, filters, cb) {
-			var params = [].concat(uids).map(function(uid) {
-				return 'uid[]=' + uid;
-			});
-			send(name + '/get_multi', params, filters, cb);
+			if (Array.isArray(uids)) {
+				var params = [].concat(uids).map(function(uid) {
+					return 'uid[]=' + uid;
+				});
+				return send(name + '/get_multi', params, filters, cb);
+			} else
+				return send(name + '/' + uids, [], filters, cb);
 		};
 		// args = {q: 'foobar'} or [{q: 'foobar'}, ...]
 		// filters = response filters
@@ -74,7 +76,7 @@ var OctoNode = function(apikey, apipath) {
 			var params = [].concat(args).map(function(key) {
 				return querystring.stringify(key);
 			});
-			send(name + '/search', params, filters, cb);
+			return send(name + '/search', params, filters, cb);
 		};
 	});
 
@@ -84,7 +86,7 @@ var OctoNode = function(apikey, apipath) {
 		var params = Object.keys(args).map(function(key) {
 			return key + '=' + querystring.escape(JSON.stringify(args[key]));
 		});
-		send('parts/match', params, filters, cb);
+		return send('parts/match', params, filters, cb);
 	};
 
 	return self;
