@@ -28,6 +28,9 @@ cli.partsMatch({ queries: [{mpn: "SN74S74N"}], exact_only: true }, console.log);
 
 // with response filter
 cli.partsMatch({ queries: [{mpn: "SN74S74N"}] }, { show: ['mpn', 'brand.name'] }, console.log);
+
+// all calls return a stream
+cli.brandsByID('2239e3330e2df5fe').pipe(fs.createWriteStream('TI.json'));
 ```
 
 ##Features
