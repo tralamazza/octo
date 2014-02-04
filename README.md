@@ -21,6 +21,9 @@ cli.brandsSearch({q: 'TI'}, console.log);
 cli.brandsSearch([{q: 'TI'},{limit: 1}], console.log);
 
 cli.partsMatch({ queries: [{mpn: "SN74S74N"}], exact_only: true }, console.log);
+
+// with response filter
+cli.partsMatch({ queries: [{mpn: "SN74S74N"}] }, { show: ['mpn', 'brand.name'] }, console.log);
 ```
 
 ##Features
