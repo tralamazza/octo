@@ -84,7 +84,6 @@ var OctoNode = function(apikey, apipath) {
 		var params = Object.keys(args).map(function(key) {
 			return key + '=' + querystring.escape(JSON.stringify(args[key]));
 		});
-		// filters(params);
 		send('parts/match', params, filters, cb);
 	};
 
