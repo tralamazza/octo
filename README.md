@@ -11,7 +11,16 @@ Official [Octopart REST API documentation](http://octopart.com/api/docs/v3/rest-
 var octo = require('octo')
 
 cli = octo.createV3('myapikey');
+
 cli.brandsByID('2239e3330e2df5fe', console.log);
+// OR
+cli.brandsByID(['2239e3330e2df5fe'], console.log);
+
+cli.brandsSearch({q: 'TI'}, console.log);
+// OR
+cli.brandsSearch([{q: 'TI'},{limit: 1}], console.log);
+
+cli.partsMatch({ queries: [{mpn: "SN74S74N"}], exact_only: true }, console.log);
 ```
 
 ##Features
