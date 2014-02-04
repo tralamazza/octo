@@ -5,6 +5,10 @@ Octo is a node.js wrapper for the Octopart REST API.
 
 Official [Octopart REST API documentation](http://octopart.com/api/docs/v3/rest-api).
 
+##Install
+
+    npm install node-octo
+
 ##Quickstart
 
 ```js
