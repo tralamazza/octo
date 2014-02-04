@@ -38,6 +38,7 @@ cli.brandsByID('2239e3330e2df5fe').pipe(fs.createWriteStream('TI.json'));
 * API fully mapped
 * HTTPS by default
 * Simple node.js style callbacks(err, result)
+* Streeaamms!
 
 ##API
 
