@@ -1,7 +1,7 @@
-octo
+node-octo
 ====
 
-Octo is a node.js wrapper for the Octopart REST API.
+node-octo is a node.js wrapper for the Octopart REST API.
 
 Official [Octopart REST API documentation](http://octopart.com/api/docs/v3/rest-api).
 

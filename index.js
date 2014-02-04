@@ -55,7 +55,7 @@ var OctoNode = function(apikey, apipath) {
 				return cb(err);
 			else if (res.statusCode != 200)
 				return cb(new Error(JSON.parse(body).message));
-			return cb(null, body);
+			return cb(null, JSON.parse(body));
 		});
 	};
 
