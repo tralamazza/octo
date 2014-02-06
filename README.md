@@ -12,24 +12,30 @@ Official [Octopart REST API documentation](http://octopart.com/api/docs/v3/rest-
 ##Quickstart
 
 ```js
-var octo = require('node-octo');
+var cli = require('node-octo').createV3('myapikey');
 
-cli = octo.createV3('myapikey');
-
+// pass one ID
 cli.brandsByID('2239e3330e2df5fe', console.log);
-// OR
+// OR an array
 cli.brandsByID(['2239e3330e2df5fe'], console.log);
 
+// pass one query statement
 cli.brandsSearch({q: 'TI'}, console.log);
-// OR
+// OR an array
 cli.brandsSearch([{q: 'TI'},{limit: 1}], console.log);
 
+// partsMatch takes an object { queries: [] }
 cli.partsMatch({ queries: [{mpn: "SN74S74N"}], exact_only: true }, console.log);
 
 // with response filter
 cli.partsMatch({ queries: [{mpn: "SN74S74N"}] }, { show: ['mpn', 'brand.name'] }, console.log);
 
-// all calls return a stream
+// pass a callback(err, data)
+cli.brandsByID('2239e3330e2df5fe', function(err, data) {
+    if (!err)
+        console.log('brand:', data.name);
+});
+// or use the return Stream
 cli.brandsByID('2239e3330e2df5fe').pipe(fs.createWriteStream('TI.json'));
 ```
 
